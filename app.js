@@ -1,9 +1,9 @@
-const countElement = document.querySelector('#count');
+const msgsElement = document.querySelector('#msgs');
 const usersElement = document.querySelector('#users');
 const statusElement = document.querySelector('#status');
 
 const params = new URLSearchParams(window.location.search);
-const channel = params.get('channel') || 'codinggarden';
+const channel = params.get('channel') || 'projektiontv';
 const client = new tmi.Client({
   connection: {
     secure: true,
@@ -22,7 +22,13 @@ let users = {};
 client.on('message', (wat, tags, message, self) => {
   if (self) return;
   const { username } = tags;
-  if (username.toLowerCase() === channel.toLowerCase()) {
+
+  let br = document.createElement("br");
+  let node = document.createTextNode (username + ': ' + message);
+  msgsElement.appendChild(node);
+  msgsElement.appendChild(br);
+
+  /*if (username.toLowerCase() === channel.toLowerCase()) {
     if (message === '!start-count') {
       listeningForCount = true;
     } else if (message === '!end-count') {
@@ -40,5 +46,5 @@ client.on('message', (wat, tags, message, self) => {
     // display current count page.
     countElement.textContent = Object.keys(users).length;
     usersElement.textContent = Object.keys(users).join(', ');
-  }
+  }*/
 });
