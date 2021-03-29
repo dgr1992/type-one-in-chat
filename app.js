@@ -24,27 +24,23 @@ client.on('message', (wat, tags, message, self) => {
   const { username } = tags;
 
   let br = document.createElement("br");
-  let node = document.createTextNode (username + ': ' + message);
-  msgsElement.appendChild(node);
-  msgsElement.appendChild(br);
 
-  /*if (username.toLowerCase() === channel.toLowerCase()) {
-    if (message === '!start-count') {
-      listeningForCount = true;
-    } else if (message === '!end-count') {
-      listeningForCount = false;
-      // say count out loud.
-      const sayCount = new SpeechSynthesisUtterance(Object.keys(users).length);
-      window.speechSynthesis.speak(sayCount);
-    } else if (message === '!clear-count') {
-      countElement.textContent = 'Waiting for count...';
-      usersElement.textContent = '';
-      users = {};
-    }
-  } else if (listeningForCount && message === '1') {
-    users[tags.username] = true;
-    // display current count page.
-    countElement.textContent = Object.keys(users).length;
-    usersElement.textContent = Object.keys(users).join(', ');
-  }*/
+  let containerUser = document.createElement("span");
+  let nodeUser = document.createTextNode (username);
+  containerUser.appendChild(nodeUser);
+  containerUser.style.color = "red";
+
+  let containerMsg = document.createElement("span");
+  let nodeMsg = document.createTextNode (message);
+  containerMsg.appendChild(nodeMsg);
+  //containerMsg.style.color = "blue";
+
+  var container = document.createElement("div");
+  container.appendChild(containerUser);
+  let seperator = document.createTextNode(": ");
+  container.appendChild(seperator);
+  container.appendChild(containerMsg);
+
+  msgsElement.appendChild(container);
+  //msgsElement.appendChild(br);
 });
